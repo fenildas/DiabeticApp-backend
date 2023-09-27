@@ -1,15 +1,15 @@
 require('dotenv').config();
-const cors = require("cors");
+import cors from "cors";
 
-const express = require("express");
-const mongoose = require("mongoose");
+import express, { json } from "express";
+import { set, connect, connection } from "mongoose";
 
-const http = require("http");
+import http from "http";
 
-mongoose.set("strictQuery", false);
+set("strictQuery", false);
 const app = express();
 
-app.use(express.json());
+app.use(json());
 app.use(cors());
 
 const hostname = process.env.HOSTNAME;
@@ -24,7 +24,7 @@ const uri = process.env.URI;
 //   res.end("Hello World");
 // });
 
-const userCarbsData = require("./routes/userCarbsRoute");
+import userCarbsData from "./routes/userCarbsRoute";
 app.get("/", (req, res) => {
   res.send("Hello");
 });
@@ -34,12 +34,12 @@ app.use("/api", userCarbsData);
 //   console.log(`Server running at http://${hostname}:${port}/`);
 // });
 
-mongoose.connect(uri, {
+connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const db = mongoose.connection;
+const db = connection;
 
 db.on("error", console.error.bind(console, "connection error: "));
 
