@@ -187,7 +187,7 @@ const getCarbDataByMealType = async (req, res) => {
     });
 
     if (carbData) {
-      res.status(200).json(carbData);
+      res.status(200).json(totalCarbs);
     } else {
       res.status(404).json(null);
     }
