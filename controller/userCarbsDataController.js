@@ -177,12 +177,13 @@ const getUserDataByDate = async (req, res) => {
 
 const getCarbDataByMealType = async (req, res) => {
   try {
-    const { userId, mealType } = req.query;
+    const { userId, mealType, totalCarbs } = req.query;
 
     // Query the userMealSchema to fetch carb data for the specified meal type
     const carbData = await userMealSchema.find({
       userId,
       mealType,
+      totalCarbs,
     });
 
     if (carbData) {
