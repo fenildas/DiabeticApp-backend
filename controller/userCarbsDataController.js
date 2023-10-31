@@ -249,11 +249,13 @@ const getCarbDetailsHomeScreen = async (req, res) => {
 const getDataForTrends = async (req, res) => {
   try {
     const userId = req.query.userId;
+    const mealDate = req.query.mealDate;
     const mealType = req.query.mealType;
 
     // Fetch data based on userId and mealType
     const dataForTrends = await userMealDateSchema.find({
       userId: userId,
+      mealDate: mealDate,
       mealType: mealType,
     });
 
