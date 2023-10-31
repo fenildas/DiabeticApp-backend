@@ -277,5 +277,5 @@ module.exports = {
   getCarbDetailsHomeScreen,
   updateUserIcr,
   addBloodGlucose,
-  getCarbDataByMealType,
+  // getCarbDataByMealType,
 };
