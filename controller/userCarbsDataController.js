@@ -250,21 +250,20 @@ const getDataForTrends = async (req, res) => {
   try {
     const userId = req.query.userId;
     const mealType = req.query.mealType;
-    const totalCarbs = parseFloat(req.query.totalCarbs);
 
-    // Check if totalCarbs is a valid number
-    if (isNaN(totalCarbs)) {
-      return res.status(400).json({ error: "Invalid totalCarbs value" });
-    }
-
-    // Fetch data based on userId, mealType, and totalCarbs
-    const data = await userMealDateSchema.find({
+    // Fetch data based on userId and mealType
+    const dataForTrends = await userMealDateSchema.find({
       userId: userId,
       mealType: mealType,
-      totalCarbs: totalCarbs,
     });
 
-    res.json(data);
+    if (dataForTrends) {
+      // Assuming dataForTrends contains an array of objects with a 'totalCarbs' property
+      const totalCarbsData = dataForTrends.map((item) => item.totalCarbs);
+      res.status(200).json(totalCarbsData);
+    } else {
+      res.status(404).json(null);
+    }
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).json({ error: "Server error" });
