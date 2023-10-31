@@ -21,4 +21,6 @@ router.get("/homeScreenCarbDetails", dataController.getCarbDetailsHomeScreen); /
 
 router.get("/updateUserICR", dataController.updateUserIcr);
 
+router.get("/dataForTrends", dataController.dataForTrends);
+
 module.exports = router;

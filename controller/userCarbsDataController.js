@@ -246,6 +246,31 @@ const getCarbDetailsHomeScreen = async (req, res) => {
   }
 };
 
+const dataForTrends = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const mealType = req.query.mealType;
+    const totalCarbs = parseFloat(req.query.totalCarbs);
+
+    // Check if totalCarbs is a valid number
+    if (isNaN(totalCarbs)) {
+      return res.status(400).json({ error: "Invalid totalCarbs value" });
+    }
+
+    // Fetch data based on userId, mealType, and totalCarbs
+    const data = await YourDataModel.find({
+      userId: userId,
+      mealType: mealType,
+      totalCarbs: totalCarbs,
+    });
+
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 module.exports = {
   storeUserData,
   getDataByFoodType_Uid_Date,
@@ -255,4 +280,5 @@ module.exports = {
   getCarbDetailsHomeScreen,
   updateUserIcr,
   addBloodGlucose,
+  dataForTrends,
 };
