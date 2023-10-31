@@ -246,7 +246,7 @@ const getCarbDetailsHomeScreen = async (req, res) => {
   }
 };
 
-const dataForTrends = async (req, res) => {
+const getDataForTrends = async (req, res) => {
   try {
     const userId = req.query.userId;
     const mealType = req.query.mealType;
@@ -258,7 +258,7 @@ const dataForTrends = async (req, res) => {
     }
 
     // Fetch data based on userId, mealType, and totalCarbs
-    const data = await YourDataModel.find({
+    const data = await userMealDateSchema.find({
       userId: userId,
       mealType: mealType,
       totalCarbs: totalCarbs,
@@ -280,5 +280,5 @@ module.exports = {
   getCarbDetailsHomeScreen,
   updateUserIcr,
   addBloodGlucose,
-  dataForTrends,
+  getDataForTrends,
 };
