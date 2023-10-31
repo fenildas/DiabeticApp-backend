@@ -175,28 +175,6 @@ const getUserDataByDate = async (req, res) => {
   }
 };
 
-// const getCarbDataByMealType = async (req, res) => {
-//   try {
-//     const { userId, mealType, totalCarbs } = req.query;
-
-//     // Query the userMealSchema to fetch carb data for the specified meal type
-//     const carbData = await userMealSchema.find({
-//       userId,
-//       mealType,
-//       totalCarbs,
-//     });
-
-//     if (carbData) {
-//       res.status(200).json(totalCarbs);
-//     } else {
-//       res.status(404).json(null);
-//     }
-//   } catch (error) {
-//     console.error("Error fetching carb data:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// };
-
 const updateByIdAndFoodType = async (req, res) => {
   try {
     const { userId, mealType, mealItems, totalCarbs } = req.body;
@@ -277,5 +255,4 @@ module.exports = {
   getCarbDetailsHomeScreen,
   updateUserIcr,
   addBloodGlucose,
-  // getCarbDataByMealType,
 };

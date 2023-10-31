@@ -9,9 +9,6 @@ router.get(
   dataController.getDataByFoodType_Uid_Date //This is used when user Clicks on BF which has already been submitted(Current Date)
 );
 
-// router.get("/carbDataByMealType", dataController.getCarbDataByMealType);
-
-
 router.get("/getDataByDate", dataController.getUserDataByDate); //Will be Used in History Need to Give Specific Date(DD/MM/YYY) to Get Data
 
 router.get("/userDates", dataController.getUserAllDates);
