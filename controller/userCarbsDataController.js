@@ -246,32 +246,6 @@ const getCarbDetailsHomeScreen = async (req, res) => {
   }
 };
 
-const getDataForTrends = async (req, res) => {
-  try {
-    const userId = req.query.userId;
-    const mealDate = req.query.mealDate;
-    const mealType = req.query.mealType;
-
-    // Fetch data based on userId and mealType
-    const dataForTrends = await userMealDateSchema.find({
-      userId: userId,
-      mealDate: mealDate,
-      mealType: mealType,
-    });
-
-    if (dataForTrends) {
-      // Assuming dataForTrends contains an array of objects with a 'totalCarbs' property
-      const totalCarbsData = dataForTrends.map((item) => item.totalCarbs);
-      res.status(200).json(totalCarbsData);
-    } else {
-      res.status(404).json(null);
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).json({ error: "Server error" });
-  }
-};
-
 module.exports = {
   storeUserData,
   getDataByFoodType_Uid_Date,
@@ -281,5 +255,4 @@ module.exports = {
   getCarbDetailsHomeScreen,
   updateUserIcr,
   addBloodGlucose,
-  getDataForTrends,
 };
