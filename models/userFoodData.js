@@ -43,6 +43,9 @@ const userMealSchema = new mongoose.Schema({
   bloodGlucoseLevel: {
     type: Number,
   },
+  bloodGlucoseLevelBeforeMeal: {
+    type: Number,
+  },
 });
 
 module.exports = userMeal = mongoose.model("userMealSchema", userMealSchema);
