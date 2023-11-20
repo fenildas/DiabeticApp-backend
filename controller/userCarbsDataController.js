@@ -227,6 +227,29 @@ const addBloodGlucose = async (req, res) => {
   }
 };
 
+const bloodGlucoseBefore = async (req, res) => {
+  try {
+    const { userId, bloodGlucoseBefore } = req.body;
+
+    const updatedUserMeal = await userMealSchema.findOneAndUpdate(
+      { userId },
+      { bloodGlucoseBefore },
+      { new: true }
+    );
+
+    if (updatedUserMeal) {
+      res.status(200).json(updatedUserMeal);
+    } else {
+      res
+        .status(404)
+        .json({ message: "No user meal found for the given criteria." });
+    }
+  } catch (error) {
+    console.error("Error updating user meal:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const addBloodGlucoseBeforeMeal = async (req, res) => {
   try {
     const { _id, bloodGlucoseLevelBeforeMeal } = req.body;
@@ -278,5 +301,6 @@ module.exports = {
   getCarbDetailsHomeScreen,
   updateUserIcr,
   addBloodGlucose,
+  bloodGlucoseBefore,
   addBloodGlucoseBeforeMeal,
 };
