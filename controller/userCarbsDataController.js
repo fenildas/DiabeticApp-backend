@@ -231,10 +231,10 @@ const addBloodGlucose = async (req, res) => {
 
 const bloodGlucoseBefore = async (req, res) => {
   try {
-    const { userId, mealType, bloodGlucoseBefore } = req.body;
+    const { _id ,userId, mealType, bloodGlucoseBefore } = req.body;
 
     const updatedUserMeal = await userMealSchema.findOneAndUpdate(
-      { userId, mealType },
+      { _id, userId, mealType },
       { bloodGlucoseBefore },
       { new: true }
     );
