@@ -1,5 +1,8 @@
 const userMealSchema = require("../models/userFoodData");
 const userMealDateSchema = require("../models/userMealDates");
+const userBloodGlucoseSchema = require("../models/userBloodGlucose");
+
+
 
 const storeUserData = (req, res) => {
   const {
@@ -67,8 +70,46 @@ const storeUserData = (req, res) => {
     console.log("New userMealSchema saved");
     res.status(200).send("New userMealSchema saved");
   });
-};
 
+
+// const newUserBloodGlucoseSchema = new userBloodGlucoseSchema({
+//   userId,
+//   mealDate,
+//   mealType,
+//   bloodGlucoseBeforeMeal,
+// });
+
+// newUserBloodGlucoseSchema.save().then((userBloodSchema) => {
+
+// });
+
+// userBloodGlucoseSchema
+//     .findOne({
+//       userId: userId,
+//       mealDate: mealDate,
+//       mealType: mealType,
+//       bloodGlucoseBeforeMeal : bloodGlucoseBeforeMeal,
+//     })
+//     .then((existingDate) => {
+//       if (existingDate) {
+//         // If mealDate already exists, do not save a new entry
+//         console.log("MealDate already exists");
+//         return;
+//       }
+//       console.log("New Date ");
+//       const newUserBloodGlucoseSchema = new newUserBloodGlucoseSchema({
+//         userId,
+//         mealDate,
+//         mealType,
+//         bloodGlucoseBeforeMeal,
+//       });
+
+//       newUserBloodGlucoseSchema.save().then((userBloodSchema) => {
+//         // Handle successful save
+//         console.log("New user blood glucose saved ");
+//       });
+//     });
+  };
 // Calculate new ICR based on historical data
 function calculateNewICR(data) {
   const targetBloodGlucose = 100;
@@ -206,6 +247,7 @@ const updateByIdAndFoodType = async (req, res) => {
   }
 };
 
+//for adding blood glucose after meal
 const addBloodGlucose = async (req, res) => {
   try {
     const { _id, bloodGlucoseLevel } = req.body;
@@ -229,11 +271,12 @@ const addBloodGlucose = async (req, res) => {
   }
 };
 
+//not using this extra code
 const bloodGlucoseBefore = async (req, res) => {
   try {
     const { userId, mealType, bloodGlucoseBefore } = req.body;
 
-    const updatedUserMeal = await userMealSchema.findOneAndUpdate(
+    const updatedUserMeal = await userBloodGlucose.findOneAndUpdate(
       { userId, mealType },
       { bloodGlucoseBefore },
       { new: true }
@@ -252,14 +295,18 @@ const bloodGlucoseBefore = async (req, res) => {
   }
 };
 
+//adding blood glucose before meal
 const addBloodGlucoseBeforeMeal = async (req, res) => {
   try {
-    const { _id, bloodGlucoseLevelBeforeMeal } = req.body;
+    const { userId, mealType, bloodGlucoseBeforeMeal } = req.body;
+    const currentDate = new Date().toLocaleDateString("en-GB");
 
-    const updatedUserMeal = await userMealSchema.findOneAndUpdate(
-      { _id },
-      { bloodGlucoseLevelBeforeMeal },
-      { new: true }
+    const updatedUserMeal = await userBloodGlucoseSchema.findOneAndUpdate(
+      { userId,
+       mealType,
+       mealDate: { $eq: currentDate }},
+       { bloodGlucoseBeforeMeal },
+       { new: true , upsert: true}
     );
 
     if (updatedUserMeal) {
