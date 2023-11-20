@@ -232,8 +232,7 @@ const bloodGlucoseBefore = async (req, res) => {
     const { userId, mealType, bloodGlucoseBefore } = req.body;
 
     const updatedUserMeal = await userMealSchema.findOneAndUpdate(
-      { userId },
-      { mealType },
+      { userId, mealType },
       { bloodGlucoseBefore },
       { new: true }
     );
