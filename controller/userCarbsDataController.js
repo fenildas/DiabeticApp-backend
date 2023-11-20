@@ -8,6 +8,7 @@ const storeUserData = (req, res) => {
     totalCarbs,
     mealType,
     insulinDose,
+    bloodGlucoseBefore,
     userICR,
     userCRR,
   } = req.body;
@@ -56,6 +57,7 @@ const storeUserData = (req, res) => {
     mealType,
     mealDate,
     insulinDose,
+    bloodGlucoseBefore,
     userICR,
     userCRR,
   });
